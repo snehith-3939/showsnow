@@ -78,13 +78,14 @@ npm run seed             # Seed with mock data (admin/user, movies, shows)
 
 ## Admin Management System
 
-The Admin Dashboard (`/admin`) allows full control over the platform:
-- **Stats**: Total Users, Movies, Bookings, and Revenue.
-- **Movies**: Add from TMDB (auto-fetches metadata/cast) or manually.
-- **Theatres**: Manage locations and screens.
-- **Screens**: Automatic seat generation based on rows/seats-per-row.
-- **Shows**: Schedule movies on screens with base pricing.
-- **Bookings**: View and filter all system-wide bookings.
+The Admin Dashboard (`/admin`) allows full control over the platform. Only users with the `ADMIN` role can access this view.
+
+**Core Responsibilities & Data Flow:**
+- **Movies**: Users do **NOT** see all movies from TMDB. The Admin must explicitly search for and add specific movies from TMDB to the local database (or add them manually). Only these admin-selected movies are available on the platform.
+- **Theatres & Screens**: The Admin creates physical locations (Theatres) and the Screens within them. The system automatically generates `Seat` records based on the rows and seats-per-row configured by the Admin.
+- **Shows**: The Admin schedules `Show` records by pairing an existing `Movie` with a `Screen` at a specific `showTime` and setting a `basePrice`. **Users can only see and book tickets for these explicitly scheduled Shows.**
+- **Tickets/Bookings**: Regular users create tickets (`Booking` records) when they reserve and pay for seats for a Show. The Admin can view, filter, and monitor all system-wide bookings.
+- **Stats**: The dashboard provides analytics on Total Users, Movies, Bookings, and Revenue.
 
 ## Environment Variables
 
