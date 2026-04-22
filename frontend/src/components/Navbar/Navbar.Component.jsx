@@ -171,6 +171,12 @@ const Navbar = () => {
                 <span className="text-gray-700 group-hover:text-red-500 font-medium">Your Orders</span>
                 <BiChevronRight className="text-gray-400 group-hover:text-red-500" />
               </Link>
+              {user?.role === 'ADMIN' && (
+                <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="py-3 border-b border-red-100 group cursor-pointer flex justify-between items-center">
+                  <span className="text-red-600 group-hover:text-red-700 font-semibold">⚙️ Admin Panel</span>
+                  <BiChevronRight className="text-red-400" />
+                </Link>
+              )}
               <Link to="/coming-soon" onClick={() => setIsMenuOpen(false)} className="py-3 border-b border-gray-100 group cursor-pointer flex justify-between items-center">
                 <span className="text-gray-700 group-hover:text-red-500 font-medium">Stream Library</span>
                 <BiChevronRight className="text-gray-400 group-hover:text-red-500" />

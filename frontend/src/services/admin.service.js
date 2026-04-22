@@ -15,6 +15,11 @@ export const addMovieFromTmdb = async (tmdbId) => {
   return res.data;
 };
 
+export const deleteMovie = async (id) => {
+  const res = await api.delete(`/admin/movies/${id}`);
+  return res.data;
+};
+
 export const getShows = async () => {
   const res = await api.get('/admin/shows');
   return res.data;
@@ -30,8 +35,25 @@ export const getTheatres = async () => {
   return res.data;
 };
 
-// Reuse existing search functionality via regular movies API for TMDB search
-export const searchTmdbMovies = async (query) => {
-  const res = await api.get(`/movies/search?q=${query}`);
+export const createTheatre = async (data) => {
+  const res = await api.post('/admin/theatres', data);
   return res.data;
 };
+
+export const createScreen = async (data) => {
+  const res = await api.post('/admin/screens', data);
+  return res.data;
+};
+
+export const getBookings = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const res = await api.get(`/admin/bookings${query ? `?${query}` : ''}`);
+  return res.data;
+};
+
+// Reuse regular search endpoint — enriched by backend with isImported flag
+export const searchTmdbMovies = async (query) => {
+  const res = await api.get(`/movies/search?q=${encodeURIComponent(query)}`);
+  return res.data;
+};
+
